@@ -24,6 +24,7 @@
 2. **导出成绩卡** —— 评分页点「导出评分」存成文件，或点「复制」把内容放进剪贴板。
 3. **发 issue** —— 点 [新建提交](https://github.com/2006sila/tbt-leaderboard/issues/new?template=submit-score.md&labels=submission)，
    光标点进代码块按 <kbd>Ctrl</kbd>+<kbd>V</kbd>，补好标题，提交。
+   也可以**把导出的 `.json` 文件直接拖进提交框**，机器人会自动下载解析。
 4. **等机器人** —— 几十秒内回帖告知结果；通过就上榜，没过会写明原因。
 
 提交需要 GitHub 账号。同一个人可以提交多条成绩（换机器、换场景都算），

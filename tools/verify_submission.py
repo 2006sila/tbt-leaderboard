@@ -28,6 +28,7 @@ import os
 import pathlib
 import re
 import sys
+import urllib.request
 
 sys.path.insert(0, os.path.dirname(os.path.abspath(__file__)))
 import tbts_card as tc  # noqa: E402
@@ -256,6 +257,47 @@ def render_board_md(board):
     return "\n".join(out)
 
 
+# ────────────────── 附件下载（拖拽上传的成绩卡文件） ──────────────────
+
+# GitHub 会把拖进提交框的文件转成 user-attachments 链接。只认这个域，
+# 不碰正文里的其它 URL —— 机器人不该替 issue 作者去请求任意地址。
+ATTACH_RE = re.compile(
+    r"https://github\.com/user-attachments/(?:assets|files)/[^\s\)\]\"'<>]+")
+ATTACH_MAX_BYTES = 256 * 1024    # 成绩卡只有几 KB；超限几乎肯定是拖错了文件
+ATTACH_MAX_TRIES = 3
+
+
+def find_attachments(body):
+    return ATTACH_RE.findall(body or "")
+
+
+def fetch_attachment(url):
+    """下载一个附件 → (文本, None)；失败 → (None, 原因)。"""
+    try:
+        req = urllib.request.Request(url, headers={"User-Agent": "tbts-verify-bot"})
+        with urllib.request.urlopen(req, timeout=20) as resp:
+            data = resp.read(ATTACH_MAX_BYTES + 1)
+    except Exception as exc:
+        return None, "%s（%s）" % (url, exc.__class__.__name__)
+    if len(data) > ATTACH_MAX_BYTES:
+        return None, "%s（超过 %d KB 上限）" % (url, ATTACH_MAX_BYTES // 1024)
+    return data.decode("utf-8", errors="replace"), None
+
+
+def card_from_attachments(body):
+    """依次尝试正文里的附件 → (文本, None)；全失败 → (None, 原因列表)；没有附件 → (None, None)。"""
+    urls = find_attachments(body)
+    if not urls:
+        return None, None
+    errs = []
+    for url in urls[:ATTACH_MAX_TRIES]:
+        text, err = fetch_attachment(url)
+        if err is None and text and text.strip():
+            return text, None
+        errs.append(err or "%s（内容为空）" % url)
+    return None, errs
+
+
 # ────────────────────────────────── 主流程 ──────────────────────────────────
 
 def main():
@@ -279,12 +321,40 @@ def main():
     board = load_board()
 
     # 1) 取出并解析成绩卡
+    #    优先代码块；代码块缺失或还是模板占位文字时，改试拖拽上传的附件。
+    raw = None
+    block_err = None
     try:
-        raw = tc.extract_json_block(body)
+        cand = tc.extract_json_block(body)
+        if cand.lstrip().startswith("{"):
+            raw = cand
+        else:
+            block_err = "代码块里不是成绩卡内容（像是没删掉的模板占位文字）。"
+    except tc.CardError as e:
+        block_err = str(e)
+
+    if raw is None:
+        raw, attach_errs = card_from_attachments(body)
+        if raw is None:
+            if attach_errs:
+                detail = ("代码块里没有有效的成绩卡；尝试下载附件也没成功 —— %s。"
+                          % "；".join(attach_errs))
+            elif block_err:
+                detail = block_err
+            else:
+                detail = "正文里既没有 ```json 代码块，也没有可下载的附件。"
+            result = fail(
+                "format", "成绩卡无法解析", detail,
+                "把导出的成绩卡完整粘进 ```json 代码块（替换模板里的占位文字）；"
+                "或把 .json 文件直接拖进提交框，机器人会自己下载解析。",
+            )
+            return finish(result)
+
+    try:
         card = tc.parse_card(raw)
     except tc.CardError as e:
         result = fail("format", "成绩卡无法解析", str(e),
-                      "请重新导出成绩卡，把完整内容粘进代码块。")
+                      "成绩卡内容必须完整、未经编辑；请重新导出后再提交。")
         return finish(result)
 
     # 2) 载荷哈希自洽
