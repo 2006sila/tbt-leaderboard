@@ -8,4 +8,3 @@
 | # | 署名 | 总分 | 等级 | CPU | GPU | 时长 | 场景 | 提交 | issue |
 |---:|---|---:|:--:|---|---|---:|:--:|---|---:|
 | 1 | 咕咕咕咕 | 84.5 | 良 | Ultra 7 255HX | RTX 5060 Laptop GPU | 15 分 44 秒 | S1 | 2026-09-11 | [#3](https://github.com/2006sila/tbt-leaderboard/issues/3) |
-| 2 | 咕咕咕咕 | 83.6 | 良 | Ultra 7 255HX | RTX 5060 Laptop GPU | 16 分 22 秒 | S2 | 2026-09-11 | [#5](https://github.com/2006sila/tbt-leaderboard/issues/5) |
