@@ -1,0 +1,13 @@
+{
+  "_comment": "榜单收录门槛 —— 唯一出处。机器人（.github/workflows/verify.yml）和网页（web/app.js）都读这一份，改门槛只改这里。",
+  "policyVersion": 1,
+  "minDurationSec": 900,
+  "maxSampleGapSec": 5,
+  "requireHasFps": true,
+  "rejectInsufficient": true,
+  "scenes": ["S1", "S2"],
+  "sceneLabels": {
+    "S1": "游戏稳态",
+    "S2": "压力测试"
+  }
+}

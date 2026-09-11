@@ -1,0 +1,1272 @@
+{
+  "version": 1,
+  "demo": true,
+  "generatedAt": "2026-09-11T18:40:00+08:00",
+  "entries": [
+    {
+      "issue": 12,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/12",
+      "author": "octocat",
+      "owner": "咕咕咕咕",
+      "scene": "S1",
+      "submittedAt": "2026-09-11T09:33:13Z",
+      "durSec": 944.5,
+      "sampleCount": 744,
+      "recordingSha256": "fea84fc8f7bfa431bd65e7ff28b92711b8ce2e5e199d2c3d1fd37f4f33291b15",
+      "cpuKey": "intel core ultra 7 255hx",
+      "gpuKey": "nvidia geforce rtx 5060 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T09:33:13+08:00",
+        "owner": "咕咕咕咕",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 84.5,
+          "grade": "良",
+          "parts": {
+            "performance": 98.9,
+            "smoothness": 68.0,
+            "thermal": 88.8,
+            "stability": 4.1,
+            "efficiency": 56.6,
+            "noise": 49.3
+          }
+        },
+        "metrics": {
+          "fpsAvg": 162.8,
+          "fps1LowAvg": 103.4,
+          "fpsWorst1Pct": 31.1,
+          "frametimeP99Ms": 32.15,
+          "stutterRatio": 0.632,
+          "stutterPct": 3.57,
+          "frametimeCv": 0.5595,
+          "fpsPerWatt": 1.13,
+          "fanPeakRpm": 5133,
+          "cpuHeadroomC": 11.0,
+          "gpuHeadroomC": 7.8,
+          "throttlePct": 0,
+          "below60Pct": 2.93,
+          "below30Pct": 0.42,
+          "below25Pct": 0.16,
+          "latencyP99Ms": 158.4,
+          "cpuMhzRatio": 0.715,
+          "cpuUtilAvgPct": 21.7,
+          "gpuUtilAvgPct": 83.0,
+          "vramUtilAvgPct": 89.6,
+          "committedUtilAvgPct": 62.3,
+          "vramTempMaxC": 70.0,
+          "memSlotTempMaxC": 54.3,
+          "diskTempMaxC": 43.9
+        },
+        "events": {
+          "stutterRuns": 6,
+          "dipRuns": 2,
+          "throttlePct": 0,
+          "powerWall": true,
+          "powerWallDropPct": 39.5,
+          "eventCount": 9
+        },
+        "hardware": {
+          "cpu": "Intel Core Ultra 7 255HX",
+          "cpuCores": 20,
+          "cpuThreads": 20,
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 专业版 24H2 · Build 26100.3624",
+          "ram": "31.4 GB · DDR5-7200 MT/s ×2",
+          "ramModel": "SK Hynix · 16 GB · DDR5-7200 MT/s ×2",
+          "disk": "YMTC YMSS2ED08D25MC · 954 GB",
+          "display": "2560 x 1600 · 240 Hz",
+          "battery": "外接电源 · 100%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 944.5,
+          "sampleCount": 744
+        },
+        "recording": {
+          "fileName": "sensors-20260906-210207-882.jsonl.gz",
+          "bytes": 33341,
+          "sha256": "fea84fc8f7bfa431bd65e7ff28b92711b8ce2e5e199d2c3d1fd37f4f33291b15"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "程序员",
+          "face": "💻",
+          "text": "Code review 结论：性能没问题，arch 清晰，就是有个 flaky 的测试——1%Low 时不时挂。建议加个 retry（清后台）再跑一遍。散热的实现挺 solid，就是 fan curve 写得有点激进。总体 LGTM，附一条 nit。",
+          "feats": [
+            "平均值绿了，P1 一塌糊涂——典型的均值掩盖了分位数。监控只看 avg 是会出人命的。",
+            "风扇转速触顶、噪音告警——用蛮力补窟窿，该调调风扇曲线了。"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 18,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/18",
+      "author": "nightcat",
+      "owner": "一只夜猫",
+      "scene": "S1",
+      "submittedAt": "2026-09-11T12:05:41Z",
+      "durSec": 1823.0,
+      "sampleCount": 1435,
+      "recordingSha256": "3c1a9f0e77b2d4a15e8c09f6d1b7a243e5f8c6d09b4a7e13f2c8d5b6a91e0f47",
+      "cpuKey": "intel core ultra 7 255hx",
+      "gpuKey": "nvidia geforce rtx 5060 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T12:05:41+08:00",
+        "owner": "一只夜猫",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 88.6,
+          "grade": "优",
+          "parts": {
+            "performance": 99.4,
+            "smoothness": 81.5,
+            "thermal": 87.2,
+            "stability": 72.4,
+            "efficiency": 63.1,
+            "noise": 51.0
+          }
+        },
+        "metrics": {
+          "fpsAvg": 171.2,
+          "fps1LowAvg": 133.5,
+          "fpsWorst1Pct": 64.2,
+          "frametimeP99Ms": 15.58,
+          "stutterRatio": 0.242,
+          "stutterPct": 0.92,
+          "frametimeCv": 0.214,
+          "fpsPerWatt": 1.38,
+          "fanPeakRpm": 5010,
+          "cpuHeadroomC": 12.4,
+          "gpuHeadroomC": 8.6,
+          "throttlePct": 0,
+          "below60Pct": 0.75,
+          "below30Pct": 0.11,
+          "below25Pct": 0.04,
+          "latencyP99Ms": 96.3,
+          "cpuMhzRatio": 0.884,
+          "cpuUtilAvgPct": 28.4,
+          "gpuUtilAvgPct": 88.1,
+          "vramUtilAvgPct": 91.2,
+          "committedUtilAvgPct": 66.0,
+          "vramTempMaxC": 68.0,
+          "memSlotTempMaxC": 52.8,
+          "diskTempMaxC": 42.0
+        },
+        "events": {
+          "stutterRuns": 1,
+          "dipRuns": 0,
+          "throttlePct": 0,
+          "powerWall": false,
+          "powerWallDropPct": null,
+          "eventCount": 1
+        },
+        "hardware": {
+          "cpu": "Intel Core Ultra 7 255HX",
+          "cpuCores": 20,
+          "cpuThreads": 20,
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 家庭版 24H2 · Build 26100.3624",
+          "ram": "31.4 GB · DDR5-7200 MT/s ×2",
+          "ramModel": "SK Hynix · 16 GB · DDR5-7200 MT/s ×2",
+          "disk": "Samsung MZVL21T0HCLR · 953 GB",
+          "display": "2560 x 1600 · 240 Hz",
+          "battery": "外接电源 · 100%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 1823.0,
+          "sampleCount": 1435
+        },
+        "recording": {
+          "fileName": "sensors-20260910-223344-118.jsonl.gz",
+          "bytes": 61208,
+          "sha256": "3c1a9f0e77b2d4a15e8c09f6d1b7a243e5f8c6d09b4a7e13f2c8d5b6a91e0f47"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "猫娘",
+          "face": "🐱",
+          "text": "喵~ 这台本本整体表现还不错嘛，主人把它照顾得挺好的说。不过 1%Low 那里有点掉链子哦，喵喵建议清一清后台进程～ 散热保持得挺好，摸摸头，奖励一个猫粮！",
+          "feats": [
+            "喵！风扇最高 5133 转，主人不觉得吵吗喵？耳朵都要聋掉了啦～",
+            "温度余量还有 11°C，说明本本还有余力哦，喵喵觉得可以再压榨一下～"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 21,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/21",
+      "author": "laozhang-2019",
+      "owner": "老张的笔电",
+      "scene": "S1",
+      "submittedAt": "2026-09-11T13:47:02Z",
+      "durSec": 2104.0,
+      "sampleCount": 1657,
+      "recordingSha256": "9d4b2c7f1a8e5306cb92f7e04a1d3869b5ce07f2a4d81639e7b0c53a82df1461",
+      "cpuKey": "intel core ultra 9 275hx",
+      "gpuKey": "nvidia geforce rtx 5070 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T13:47:02+08:00",
+        "owner": "老张的笔电",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 92.1,
+          "grade": "优",
+          "parts": {
+            "performance": 100.0,
+            "smoothness": 86.7,
+            "thermal": 90.2,
+            "stability": 78.9,
+            "efficiency": 59.4,
+            "noise": 44.8
+          }
+        },
+        "metrics": {
+          "fpsAvg": 198.6,
+          "fps1LowAvg": 163.1,
+          "fpsWorst1Pct": 88.4,
+          "frametimeP99Ms": 11.31,
+          "stutterRatio": 0.19,
+          "stutterPct": 0.61,
+          "frametimeCv": 0.168,
+          "fpsPerWatt": 1.31,
+          "fanPeakRpm": 5620,
+          "cpuHeadroomC": 9.6,
+          "gpuHeadroomC": 6.4,
+          "throttlePct": 0,
+          "below60Pct": 0.5,
+          "below30Pct": 0.07,
+          "below25Pct": 0.03,
+          "latencyP99Ms": 78.9,
+          "cpuMhzRatio": 0.902,
+          "cpuUtilAvgPct": 26.1,
+          "gpuUtilAvgPct": 92.4,
+          "vramUtilAvgPct": 93.8,
+          "committedUtilAvgPct": 64.0,
+          "vramTempMaxC": 74.0,
+          "memSlotTempMaxC": 57.1,
+          "diskTempMaxC": 45.2
+        },
+        "events": {
+          "stutterRuns": 0,
+          "dipRuns": 0,
+          "throttlePct": 0,
+          "powerWall": false,
+          "powerWallDropPct": null,
+          "eventCount": 0
+        },
+        "hardware": {
+          "cpu": "Intel Core Ultra 9 275HX",
+          "cpuCores": 24,
+          "cpuThreads": 24,
+          "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 专业版 24H2 · Build 26100.3624",
+          "ram": "63.2 GB · DDR5-6400 MT/s ×2",
+          "ramModel": "Micron · 32 GB · DDR5-6400 MT/s ×2",
+          "disk": "WD PC SN810 SDCQNRY-1T00 · 954 GB",
+          "display": "3200 x 2000 · 165 Hz",
+          "battery": "外接电源 · 100%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 2104.0,
+          "sampleCount": 1657
+        },
+        "recording": {
+          "fileName": "sensors-20260911-091502-004.jsonl.gz",
+          "bytes": 70442,
+          "sha256": "9d4b2c7f1a8e5306cb92f7e04a1d3869b5ce07f2a4d81639e7b0c53a82df1461"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "夸夸",
+          "face": "🥳",
+          "text": "哇这台机器很能打啊！帧率稳稳的，散热也压得住，看得出来是台好本子。1%Low 稍微有点小瑕疵，但瑕不掩瑜，整体真的相当不错，值得夸一下！",
+          "feats": [
+            "风扇转速上去了，但这说明散热在认真工作，不是坏事！",
+            "温度余量很宽裕，安安静静就把活干了，赞！"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 24,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/24",
+      "author": "octocat",
+      "owner": "咕咕咕咕",
+      "scene": "S2",
+      "submittedAt": "2026-09-11T14:22:19Z",
+      "durSec": 1265.5,
+      "sampleCount": 996,
+      "recordingSha256": "b7e02a4c6f19d835ae2c07f1b3d9e6485a1f7c20d8b6349e27f5a0c1d3e6b8a4",
+      "cpuKey": "intel core ultra 7 255hx",
+      "gpuKey": "nvidia geforce rtx 5060 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T14:22:19+08:00",
+        "owner": "咕咕咕咕",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 79.3,
+          "grade": "良",
+          "parts": {
+            "performance": 94.2,
+            "smoothness": 61.8,
+            "thermal": 76.4,
+            "stability": 22.7,
+            "efficiency": 52.0,
+            "noise": 41.6
+          }
+        },
+        "metrics": {
+          "fpsAvg": 138.4,
+          "fps1LowAvg": 82.8,
+          "fpsWorst1Pct": 22.6,
+          "frametimeP99Ms": 44.25,
+          "stutterRatio": 0.714,
+          "stutterPct": 5.84,
+          "frametimeCv": 0.632,
+          "fpsPerWatt": 1.02,
+          "fanPeakRpm": 5702,
+          "cpuHeadroomC": 6.2,
+          "gpuHeadroomC": 3.1,
+          "throttlePct": 12.4,
+          "below60Pct": 4.79,
+          "below30Pct": 0.69,
+          "below25Pct": 0.26,
+          "latencyP99Ms": 214.6,
+          "cpuMhzRatio": 0.641,
+          "cpuUtilAvgPct": 48.2,
+          "gpuUtilAvgPct": 94.7,
+          "vramUtilAvgPct": 95.1,
+          "committedUtilAvgPct": 74.8,
+          "vramTempMaxC": 79.0,
+          "memSlotTempMaxC": 63.5,
+          "diskTempMaxC": 51.8
+        },
+        "events": {
+          "stutterRuns": 11,
+          "dipRuns": 4,
+          "throttlePct": 12.4,
+          "powerWall": true,
+          "powerWallDropPct": 22.1,
+          "eventCount": 17
+        },
+        "hardware": {
+          "cpu": "Intel Core Ultra 7 255HX",
+          "cpuCores": 20,
+          "cpuThreads": 20,
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 专业版 24H2 · Build 26100.3624",
+          "ram": "31.4 GB · DDR5-7200 MT/s ×2",
+          "ramModel": "SK Hynix · 16 GB · DDR5-7200 MT/s ×2",
+          "disk": "YMTC YMSS2ED08D25MC · 954 GB",
+          "display": "2560 x 1600 · 240 Hz",
+          "battery": "外接电源 · 100%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 1265.5,
+          "sampleCount": 996
+        },
+        "recording": {
+          "fileName": "sensors-20260911-140233-877.jsonl.gz",
+          "bytes": 42119,
+          "sha256": "b7e02a4c6f19d835ae2c07f1b3d9e6485a1f7c20d8b6349e27f5a0c1d3e6b8a4"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "毒舌",
+          "face": "😏",
+          "text": "又一台想上天的机器。帧数挺好看，可惜帧时间抖得跟我周一的心情一样。散热压住了？那是风扇拿命换的。看在你没蓝屏的份上，给你个良，谢恩吧。",
+          "feats": [
+            "帧时间波动这么大，你确定不是后台在下东西？",
+            "显卡占用率拉满但帧数上不去，瓶颈在哪儿自己想想。"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 27,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/27",
+      "author": "kira-dev",
+      "owner": "Kira",
+      "scene": "S1",
+      "submittedAt": "2026-09-11T15:10:55Z",
+      "durSec": 1502.0,
+      "sampleCount": 1183,
+      "recordingSha256": "1f6c8d0b3a7e5924cf81d604b2e7a35904c8e1f7b3d6259a84e0c7b1f4d26a93",
+      "cpuKey": "amd ryzen 7 8845h",
+      "gpuKey": "nvidia geforce rtx 4060 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T15:10:55+08:00",
+        "owner": "Kira",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 76.8,
+          "grade": "良",
+          "parts": {
+            "performance": 91.3,
+            "smoothness": 63.2,
+            "thermal": 79.1,
+            "stability": 48.0,
+            "efficiency": 68.4,
+            "noise": 57.2
+          }
+        },
+        "metrics": {
+          "fpsAvg": 124.6,
+          "fps1LowAvg": 85.7,
+          "fpsWorst1Pct": 41.3,
+          "frametimeP99Ms": 24.21,
+          "stutterRatio": 0.4,
+          "stutterPct": 2.14,
+          "frametimeCv": 0.354,
+          "fpsPerWatt": 1.86,
+          "fanPeakRpm": 4380,
+          "cpuHeadroomC": 14.2,
+          "gpuHeadroomC": 9.8,
+          "throttlePct": 0,
+          "below60Pct": 1.75,
+          "below30Pct": 0.25,
+          "below25Pct": 0.1,
+          "latencyP99Ms": 132.7,
+          "cpuMhzRatio": 0.792,
+          "cpuUtilAvgPct": 31.6,
+          "gpuUtilAvgPct": 86.3,
+          "vramUtilAvgPct": 81.4,
+          "committedUtilAvgPct": 58.2,
+          "vramTempMaxC": 64.0,
+          "memSlotTempMaxC": 49.6,
+          "diskTempMaxC": 40.1
+        },
+        "events": {
+          "stutterRuns": 3,
+          "dipRuns": 1,
+          "throttlePct": 0,
+          "powerWall": false,
+          "powerWallDropPct": null,
+          "eventCount": 4
+        },
+        "hardware": {
+          "cpu": "AMD Ryzen 7 8845H",
+          "cpuCores": 8,
+          "cpuThreads": 16,
+          "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 家庭版 24H2 · Build 26100.3624",
+          "ram": "16.0 GB · LPDDR5X-7500 MT/s ×2",
+          "ramModel": "Samsung · 8 GB · LPDDR5X-7500 MT/s ×2",
+          "disk": "SK Hynix HFS001TEJ9X101N · 954 GB",
+          "display": "2560 x 1600 · 120 Hz",
+          "battery": "外接电源 · 98%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 1502.0,
+          "sampleCount": 1183
+        },
+        "recording": {
+          "fileName": "sensors-20260911-101511-203.jsonl.gz",
+          "bytes": 48770,
+          "sha256": "1f6c8d0b3a7e5924cf81d604b2e7a35904c8e1f7b3d6259a84e0c7b1f4d26a93"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "管家",
+          "face": "🎩",
+          "text": "先生，本次运行的各项指标已为您整理完毕。总体表现稳健，平均帧率令人满意；唯最差 1% 帧率稍显不济，或与后台任务有关，建议您闲时清理。散热状况良好，请放心使用。",
+          "feats": [
+            "风扇峰值已接近本机上限，建议留意积灰情况，适时维护。",
+            "温度余量尚属宽裕，无需额外干预。"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 31,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/31",
+      "author": "coolfan-pro",
+      "owner": "散热垫信徒",
+      "scene": "S2",
+      "submittedAt": "2026-09-11T16:02:33Z",
+      "durSec": 2410.0,
+      "sampleCount": 1898,
+      "recordingSha256": "6e2b9c4a1d7f8350be94c2f6a8d1735e0f8b64ca27d5913e4826fb0d7a3c95e1",
+      "cpuKey": "intel core ultra 9 275hx",
+      "gpuKey": "nvidia geforce rtx 5070 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T16:02:33+08:00",
+        "owner": "散热垫信徒",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 89.4,
+          "grade": "优",
+          "parts": {
+            "performance": 97.8,
+            "smoothness": 79.4,
+            "thermal": 92.6,
+            "stability": 64.1,
+            "efficiency": 57.8,
+            "noise": 38.2
+          }
+        },
+        "metrics": {
+          "fpsAvg": 186.4,
+          "fps1LowAvg": 142.0,
+          "fpsWorst1Pct": 58.6,
+          "frametimeP99Ms": 17.06,
+          "stutterRatio": 0.255,
+          "stutterPct": 1.34,
+          "frametimeCv": 0.226,
+          "fpsPerWatt": 1.24,
+          "fanPeakRpm": 5880,
+          "cpuHeadroomC": 8.8,
+          "gpuHeadroomC": 5.2,
+          "throttlePct": 4.2,
+          "below60Pct": 1.1,
+          "below30Pct": 0.16,
+          "below25Pct": 0.06,
+          "latencyP99Ms": 104.2,
+          "cpuMhzRatio": 0.876,
+          "cpuUtilAvgPct": 42.6,
+          "gpuUtilAvgPct": 95.8,
+          "vramUtilAvgPct": 96.2,
+          "committedUtilAvgPct": 78.4,
+          "vramTempMaxC": 76.0,
+          "memSlotTempMaxC": 59.8,
+          "diskTempMaxC": 47.4
+        },
+        "events": {
+          "stutterRuns": 2,
+          "dipRuns": 1,
+          "throttlePct": 4.2,
+          "powerWall": true,
+          "powerWallDropPct": 11.8,
+          "eventCount": 5
+        },
+        "hardware": {
+          "cpu": "Intel Core Ultra 9 275HX",
+          "cpuCores": 24,
+          "cpuThreads": 24,
+          "gpu": "NVIDIA GeForce RTX 5070 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 专业版 24H2 · Build 26100.3624",
+          "ram": "63.2 GB · DDR5-6400 MT/s ×2",
+          "ramModel": "Micron · 32 GB · DDR5-6400 MT/s ×2",
+          "disk": "WD PC SN810 SDCQNRY-1T00 · 954 GB",
+          "display": "3200 x 2000 · 165 Hz",
+          "battery": "外接电源 · 100%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 2410.0,
+          "sampleCount": 1898
+        },
+        "recording": {
+          "fileName": "sensors-20260911-120258-331.jsonl.gz",
+          "bytes": 80720,
+          "sha256": "6e2b9c4a1d7f8350be94c2f6a8d1735e0f8b64ca27d5913e4826fb0d7a3c95e1"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "老中医",
+          "face": "🩺",
+          "text": "嗯……老夫搭脉一看，这台机器底子是好的，就是气血有点虚。脉象（帧时间）时急时缓，恐是后台有杂症缠身。温度倒是平稳，不燥不寒，调养得体。开一剂方子：清后台、少开标签页，忌装十个杀毒软件。",
+          "feats": [
+            "风扇转数偏旺，恐是热邪不散之气，可清灰以畅其道。",
+            "温度余量可观，可视为肺活量尚可，宜常练（常跑）为宜。"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 36,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/36",
+      "author": "nyaa-nyaa",
+      "owner": "猫娘粉丝团",
+      "scene": "S1",
+      "submittedAt": "2026-09-11T16:55:12Z",
+      "durSec": 1640.0,
+      "sampleCount": 1291,
+      "recordingSha256": "2d7e4b9f0a6c1853ed92b7f40c1a8635e0db97f2c4a58361f7e9b02d6c4185a3",
+      "cpuKey": "amd ryzen 9 8945hs",
+      "gpuKey": "nvidia geforce rtx 4070 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T16:55:12+08:00",
+        "owner": "猫娘粉丝团",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 90.2,
+          "grade": "优",
+          "parts": {
+            "performance": 96.4,
+            "smoothness": 84.8,
+            "thermal": 88.4,
+            "stability": 74.2,
+            "efficiency": 71.6,
+            "noise": 62.4
+          }
+        },
+        "metrics": {
+          "fpsAvg": 176.8,
+          "fps1LowAvg": 142.5,
+          "fpsWorst1Pct": 72.4,
+          "frametimeP99Ms": 13.81,
+          "stutterRatio": 0.212,
+          "stutterPct": 0.78,
+          "frametimeCv": 0.188,
+          "fpsPerWatt": 1.94,
+          "fanPeakRpm": 4620,
+          "cpuHeadroomC": 13.6,
+          "gpuHeadroomC": 10.2,
+          "throttlePct": 0,
+          "below60Pct": 0.64,
+          "below30Pct": 0.09,
+          "below25Pct": 0.04,
+          "latencyP99Ms": 88.6,
+          "cpuMhzRatio": 0.914,
+          "cpuUtilAvgPct": 24.8,
+          "gpuUtilAvgPct": 89.6,
+          "vramUtilAvgPct": 88.2,
+          "committedUtilAvgPct": 61.4,
+          "vramTempMaxC": 66.0,
+          "memSlotTempMaxC": 50.2,
+          "diskTempMaxC": 41.6
+        },
+        "events": {
+          "stutterRuns": 0,
+          "dipRuns": 0,
+          "throttlePct": 0,
+          "powerWall": false,
+          "powerWallDropPct": null,
+          "eventCount": 0
+        },
+        "hardware": {
+          "cpu": "AMD Ryzen 9 8945HS",
+          "cpuCores": 8,
+          "cpuThreads": 16,
+          "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 家庭版 24H2 · Build 26100.3624",
+          "ram": "31.4 GB · DDR5-5600 MT/s ×2",
+          "ramModel": "Samsung · 16 GB · DDR5-5600 MT/s ×2",
+          "disk": "SK Hynix HFS001TEJ9X101N · 954 GB",
+          "display": "2560 x 1600 · 240 Hz",
+          "battery": "外接电源 · 100%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 1640.0,
+          "sampleCount": 1291
+        },
+        "recording": {
+          "fileName": "sensors-20260911-142031-997.jsonl.gz",
+          "bytes": 53244,
+          "sha256": "2d7e4b9f0a6c1853ed92b7f40c1a8635e0db97f2c4a58361f7e9b02d6c4185a3"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "猫娘",
+          "face": "🐱",
+          "text": "喵~ 这台本本整体表现还不错嘛，主人把它照顾得挺好的说。不过 1%Low 那里有点掉链子哦，喵喵建议清一清后台进程～ 散热保持得挺好，摸摸头，奖励一个猫粮！",
+          "feats": [
+            "喵！风扇最高 5133 转，主人不觉得吵吗喵？耳朵都要聋掉了啦～",
+            "温度余量还有 11°C，说明本本还有余力哦，喵喵觉得可以再压榨一下～"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 38,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/38",
+      "author": "wanglao",
+      "owner": "隔壁老王",
+      "scene": "S1",
+      "submittedAt": "2026-09-11T17:12:40Z",
+      "durSec": 1080.0,
+      "sampleCount": 850,
+      "recordingSha256": "5b9c1e7a3d0f8264be75c1a9d6f2308e4a1b9c7d0e5f3182a6b4d09c7e2f5a83",
+      "cpuKey": "intel core i7-13700h",
+      "gpuKey": "nvidia geforce rtx 4050 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T17:12:40+08:00",
+        "owner": "隔壁老王",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 61.5,
+          "grade": "中",
+          "parts": {
+            "performance": 74.6,
+            "smoothness": 52.4,
+            "thermal": 68.2,
+            "stability": 24.8,
+            "efficiency": 61.2,
+            "noise": 48.6
+          }
+        },
+        "metrics": {
+          "fpsAvg": 98.4,
+          "fps1LowAvg": 53.3,
+          "fpsWorst1Pct": 18.4,
+          "frametimeP99Ms": 54.35,
+          "stutterRatio": 0.818,
+          "stutterPct": 7.42,
+          "frametimeCv": 0.724,
+          "fpsPerWatt": 1.12,
+          "fanPeakRpm": 5210,
+          "cpuHeadroomC": 9.4,
+          "gpuHeadroomC": 6.8,
+          "throttlePct": 8.6,
+          "below60Pct": 6.08,
+          "below30Pct": 0.88,
+          "below25Pct": 0.33,
+          "latencyP99Ms": 248.2,
+          "cpuMhzRatio": 0.586,
+          "cpuUtilAvgPct": 38.4,
+          "gpuUtilAvgPct": 81.2,
+          "vramUtilAvgPct": 76.8,
+          "committedUtilAvgPct": 68.4,
+          "vramTempMaxC": 72.0,
+          "memSlotTempMaxC": 56.4,
+          "diskTempMaxC": 44.2
+        },
+        "events": {
+          "stutterRuns": 14,
+          "dipRuns": 6,
+          "throttlePct": 8.6,
+          "powerWall": true,
+          "powerWallDropPct": 31.4,
+          "eventCount": 21
+        },
+        "hardware": {
+          "cpu": "Intel Core i7-13700H",
+          "cpuCores": 14,
+          "cpuThreads": 20,
+          "gpu": "NVIDIA GeForce RTX 4050 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 家庭版 23H2 · Build 22631.4890",
+          "ram": "16.0 GB · DDR5-4800 MT/s ×2",
+          "ramModel": "Kingston · 8 GB · DDR5-4800 MT/s ×2",
+          "disk": "KIOXIA KXG80ZNV512G · 477 GB",
+          "display": "2560 x 1600 · 165 Hz",
+          "battery": "外接电源 · 96%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 1080.0,
+          "sampleCount": 850
+        },
+        "recording": {
+          "fileName": "sensors-20260911-152230-441.jsonl.gz",
+          "bytes": 34080,
+          "sha256": "5b9c1e7a3d0f8264be75c1a9d6f2308e4a1b9c7d0e5f3182a6b4d09c7e2f5a83"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "毒舌",
+          "face": "😏",
+          "text": "还行吧，不至于扔垃圾桶。帧数看着挺唬人，可惜 1% 那档掉得厉害——平均值就是用来骗自己的，帧率曲线比我的耐心还抖。散热倒还算争气，这点得承认，虽然代价是风扇快起飞了。",
+          "feats": [
+            "P99 帧时间偏高，说白了就是每隔一会儿卡你一下，别跟我说你感觉不到。",
+            "风扇拉满换来温度余量，这笔账算得还行，勉强给个及格。"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 40,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/40",
+      "author": "tb-fan",
+      "owner": "ThinkBook 全家桶",
+      "scene": "S2",
+      "submittedAt": "2026-09-11T17:40:15Z",
+      "durSec": 1990.0,
+      "sampleCount": 1567,
+      "recordingSha256": "7a3d5f9b1c8e0427df96b3c05e1a2748c6db93f0a2e51749b8c0d6a3f2e9b517",
+      "cpuKey": "intel core ultra 7 255hx",
+      "gpuKey": "nvidia geforce rtx 5060 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T17:40:15+08:00",
+        "owner": "ThinkBook 全家桶",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 82.4,
+          "grade": "良",
+          "parts": {
+            "performance": 95.8,
+            "smoothness": 68.4,
+            "thermal": 82.6,
+            "stability": 41.2,
+            "efficiency": 54.8,
+            "noise": 45.2
+          }
+        },
+        "metrics": {
+          "fpsAvg": 152.6,
+          "fps1LowAvg": 102.9,
+          "fpsWorst1Pct": 38.2,
+          "frametimeP99Ms": 26.18,
+          "stutterRatio": 0.484,
+          "stutterPct": 3.42,
+          "frametimeCv": 0.428,
+          "fpsPerWatt": 1.08,
+          "fanPeakRpm": 5460,
+          "cpuHeadroomC": 8.2,
+          "gpuHeadroomC": 5.6,
+          "throttlePct": 6.8,
+          "below60Pct": 2.8,
+          "below30Pct": 0.4,
+          "below25Pct": 0.15,
+          "latencyP99Ms": 168.4,
+          "cpuMhzRatio": 0.724,
+          "cpuUtilAvgPct": 44.8,
+          "gpuUtilAvgPct": 93.2,
+          "vramUtilAvgPct": 92.6,
+          "committedUtilAvgPct": 72.6,
+          "vramTempMaxC": 77.0,
+          "memSlotTempMaxC": 61.2,
+          "diskTempMaxC": 49.4
+        },
+        "events": {
+          "stutterRuns": 7,
+          "dipRuns": 2,
+          "throttlePct": 6.8,
+          "powerWall": true,
+          "powerWallDropPct": 18.6,
+          "eventCount": 10
+        },
+        "hardware": {
+          "cpu": "Intel Core Ultra 7 255HX",
+          "cpuCores": 20,
+          "cpuThreads": 20,
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 专业版 24H2 · Build 26100.3624",
+          "ram": "31.4 GB · DDR5-7200 MT/s ×2",
+          "ramModel": "SK Hynix · 16 GB · DDR5-7200 MT/s ×2",
+          "disk": "YMTC YMSS2ED08D25MC · 954 GB",
+          "display": "2560 x 1600 · 240 Hz",
+          "battery": "外接电源 · 100%"
+        },
+        "view": {
+          "range": "最近 7 天",
+          "rangeIndex": 1,
+          "durationSec": 1990.0,
+          "sampleCount": 1567
+        },
+        "recording": {
+          "fileName": "sensors-20260911-161022-338.jsonl.gz",
+          "bytes": 66110,
+          "sha256": "7a3d5f9b1c8e0427df96b3c05e1a2748c6db93f0a2e51749b8c0d6a3f2e9b517"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "程序员",
+          "face": "💻",
+          "text": "Code review 结论：性能没问题，arch 清晰，就是有个 flaky 的测试——1%Low 时不时挂。建议加个 retry（清后台）再跑一遍。散热的实现挺 solid，就是 fan curve 写得有点激进。总体 LGTM，附一条 nit。",
+          "feats": [
+            "平均值绿了，P1 一塌糊涂——典型的均值掩盖了分位数。监控只看 avg 是会出人命的。",
+            "风扇转速触顶、噪音告警——用蛮力补窟窿，该调调风扇曲线了。"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 44,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/44",
+      "author": "butter-fingers",
+      "owner": "手残党",
+      "scene": "S1",
+      "submittedAt": "2026-09-11T18:05:36Z",
+      "durSec": 990.0,
+      "sampleCount": 780,
+      "recordingSha256": "3f8a1c6d0e5b9274ac81f3e06b2d9754e1ca08f6b3d2479108e5c2a7f4b1d639",
+      "cpuKey": "intel core ultra 5 225h",
+      "gpuKey": "intel arc 130t gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T18:05:36+08:00",
+        "owner": "手残党",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 56.8,
+          "grade": "差",
+          "parts": {
+            "performance": 48.2,
+            "smoothness": 44.6,
+            "thermal": 78.4,
+            "stability": 32.4,
+            "efficiency": 84.2,
+            "noise": 76.8
+          }
+        },
+        "metrics": {
+          "fpsAvg": 42.6,
+          "fps1LowAvg": 20.7,
+          "fpsWorst1Pct": 14.2,
+          "frametimeP99Ms": 70.42,
+          "stutterRatio": 0.951,
+          "stutterPct": 9.64,
+          "frametimeCv": 0.842,
+          "fpsPerWatt": 3.12,
+          "fanPeakRpm": 3120,
+          "cpuHeadroomC": 17.4,
+          "gpuHeadroomC": 14.8,
+          "throttlePct": 0,
+          "below60Pct": 7.9,
+          "below30Pct": 1.14,
+          "below25Pct": 0.43,
+          "latencyP99Ms": 286.4,
+          "cpuMhzRatio": 0.742,
+          "cpuUtilAvgPct": 22.4,
+          "gpuUtilAvgPct": 64.8,
+          "vramUtilAvgPct": 52.4,
+          "committedUtilAvgPct": 52.8,
+          "vramTempMaxC": 58.0,
+          "memSlotTempMaxC": 44.2,
+          "diskTempMaxC": 38.4
+        },
+        "events": {
+          "stutterRuns": 19,
+          "dipRuns": 8,
+          "throttlePct": 0,
+          "powerWall": false,
+          "powerWallDropPct": null,
+          "eventCount": 27
+        },
+        "hardware": {
+          "cpu": "Intel Core Ultra 5 225H",
+          "cpuCores": 14,
+          "cpuThreads": 14,
+          "gpu": "Intel Arc 130T GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 家庭版 24H2 · Build 26100.3624",
+          "ram": "16.0 GB · LPDDR5X-8533 MT/s ×2",
+          "ramModel": "Micron · 8 GB · LPDDR5X-8533 MT/s ×2",
+          "disk": "Samsung MZVL8512HELU-00BMV · 477 GB",
+          "display": "2880 x 1800 · 120 Hz",
+          "battery": "外接电源 · 100%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 990.0,
+          "sampleCount": 780
+        },
+        "recording": {
+          "fileName": "sensors-20260911-174502-115.jsonl.gz",
+          "bytes": 31204,
+          "sha256": "3f8a1c6d0e5b9274ac81f3e06b2d9754e1ca08f6b3d2479108e5c2a7f4b1d639"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "阴阳怪气",
+          "face": "🙃",
+          "text": "哟，帧数真高呢，真是个了不起的数字。可惜打开帧时间曲线一看，那叫一个跌宕起伏。散热倒是没话说——风扇转成那样了当然压得住，这也能算优点的话。",
+          "feats": [
+            "平均值漂亮得像 PPT，分位数难看得像月底 KPI，你猜哪个是真的？",
+            "P99 帧时间嘛，小场面，也就时不时卡那么一下而已。"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    },
+    {
+      "issue": 46,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/46",
+      "author": "yiyeshu",
+      "owner": "一叶知秋",
+      "scene": "S1",
+      "submittedAt": "2026-09-11T18:20:04Z",
+      "durSec": 1408.0,
+      "sampleCount": 1109,
+      "recordingSha256": "9e1d4a7b2c6f0358bd92e4a7c1f60835a4db97c2e5f01836a7c9b3d0e6f2a481",
+      "cpuKey": "amd ryzen 7 8845h",
+      "gpuKey": "nvidia geforce rtx 4060 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T18:20:04+08:00",
+        "owner": "一叶知秋",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 77.9,
+          "grade": "良",
+          "parts": {
+            "performance": 90.6,
+            "smoothness": 67.2,
+            "thermal": 80.4,
+            "stability": 52.6,
+            "efficiency": 70.2,
+            "noise": 58.4
+          }
+        },
+        "metrics": {
+          "fpsAvg": 128.2,
+          "fps1LowAvg": 90.0,
+          "fpsWorst1Pct": 44.6,
+          "frametimeP99Ms": 22.42,
+          "stutterRatio": 0.366,
+          "stutterPct": 1.86,
+          "frametimeCv": 0.324,
+          "fpsPerWatt": 1.92,
+          "fanPeakRpm": 4260,
+          "cpuHeadroomC": 14.8,
+          "gpuHeadroomC": 10.4,
+          "throttlePct": 0,
+          "below60Pct": 1.53,
+          "below30Pct": 0.22,
+          "below25Pct": 0.08,
+          "latencyP99Ms": 124.8,
+          "cpuMhzRatio": 0.812,
+          "cpuUtilAvgPct": 30.2,
+          "gpuUtilAvgPct": 87.4,
+          "vramUtilAvgPct": 82.6,
+          "committedUtilAvgPct": 57.6,
+          "vramTempMaxC": 63.0,
+          "memSlotTempMaxC": 48.8,
+          "diskTempMaxC": 39.6
+        },
+        "events": {
+          "stutterRuns": 2,
+          "dipRuns": 1,
+          "throttlePct": 0,
+          "powerWall": false,
+          "powerWallDropPct": null,
+          "eventCount": 3
+        },
+        "hardware": {
+          "cpu": "AMD Ryzen 7 8845H",
+          "cpuCores": 8,
+          "cpuThreads": 16,
+          "gpu": "NVIDIA GeForce RTX 4060 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 家庭版 24H2 · Build 26100.3624",
+          "ram": "16.0 GB · LPDDR5X-7500 MT/s ×2",
+          "ramModel": "Samsung · 8 GB · LPDDR5X-7500 MT/s ×2",
+          "disk": "SK Hynix HFS001TEJ9X101N · 954 GB",
+          "display": "2560 x 1600 · 120 Hz",
+          "battery": "外接电源 · 99%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 1408.0,
+          "sampleCount": 1109
+        },
+        "recording": {
+          "fileName": "sensors-20260911-181530-720.jsonl.gz",
+          "bytes": 45180,
+          "sha256": "9e1d4a7b2c6f0358bd92e4a7c1f60835a4db97c2e5f01836a7c9b3d0e6f2a481"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "阴阳怪气",
+          "face": "🙃",
+          "text": "嗯嗯，分数挺高的，真棒。就是不知道这成绩是机器的功劳还是空调的功劳。毕竟室温降两度，什么本子都能变旗舰嘛。",
+          "feats": [
+            "温度余量这么漂亮，建议顺便报一下室温，我好知道该夸机器还是夸空调。",
+            "风扇转速这么温柔，是不是把性能模式忘了开呀？"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": ""
+        }
+      }
+    }
+  ]
+}

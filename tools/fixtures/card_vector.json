@@ -1,0 +1,102 @@
+{
+  "format": "tbts-score",
+  "version": 1,
+  "generatedAt": "2026-01-02T03:04:05+08:00",
+  "owner": "测试\"引号\"\\反斜杠",
+  "generator": {
+    "app": "TBTSensorDashboard",
+    "version": "2.0.0",
+    "platform": "win-x64",
+    "sampleIntervalSec": 1
+  },
+  "score": {
+    "total": 68.0,
+    "grade": "中",
+    "parts": {
+      "performance": 100.0,
+      "smoothness": 68.0,
+      "thermal": 0.0,
+      "stability": null,
+      "efficiency": 33.3,
+      "noise": 7.5
+    }
+  },
+  "metrics": {
+    "fpsAvg": 144.0,
+    "fps1LowAvg": 98.5,
+    "fpsWorst1Pct": 62.25,
+    "frametimeP99Ms": 16.07,
+    "stutterRatio": 0.5,
+    "stutterPct": 1.25,
+    "frametimeCv": 0.3125,
+    "fpsPerWatt": 2.5,
+    "fanPeakRpm": 4800.0,
+    "cpuHeadroomC": 12.0,
+    "gpuHeadroomC": null,
+    "throttlePct": 0.0,
+    "below60Pct": 0.5,
+    "below30Pct": null,
+    "below25Pct": null,
+    "latencyP99Ms": 45.5,
+    "cpuMhzRatio": 0.888,
+    "cpuUtilAvgPct": 33.3,
+    "gpuUtilAvgPct": 99.0,
+    "vramUtilAvgPct": 50.5,
+    "committedUtilAvgPct": 66.6,
+    "vramTempMaxC": 72.0,
+    "memSlotTempMaxC": null,
+    "diskTempMaxC": 41.5
+  },
+  "events": {
+    "stutterRuns": 0,
+    "dipRuns": 0,
+    "throttlePct": null,
+    "powerWall": false,
+    "powerWallDropPct": null,
+    "eventCount": 0
+  },
+  "hardware": {
+    "cpu": "AMD Ryzen 9 8945HS",
+    "cpuCores": 8,
+    "cpuThreads": 16,
+    "gpu": "NVIDIA GeForce RTX 4070 Laptop GPU",
+    "board": "LENOVO",
+    "os": "Windows 11 专业版 24H2 · Build 26100.3624",
+    "ram": "31.4 GB · LPDDR5X-7500 MT/s ×2",
+    "ramModel": "Samsung · 16 GB · LPDDR5X-7500 MT/s ×2",
+    "disk": "SK Hynix HFS001TEJ9X101N · 954 GB",
+    "display": "2560 x 1600 · 120 Hz",
+    "battery": "外接电源 · 100%"
+  },
+  "view": {
+    "range": "最近 5 分钟",
+    "rangeIndex": 2,
+    "durationSec": 1200.5,
+    "sampleCount": 946
+  },
+  "recording": {
+    "fileName": null,
+    "bytes": null,
+    "sha256": null
+  },
+  "confidence": {
+    "hasFps": true,
+    "insufficient": false,
+    "sampling": "≈1 Hz",
+    "note": "制表符\t换行符\n结束；含 emoji 🎉 与全角标点（），——……"
+  },
+  "flavor": {
+    "persona": "猫娘",
+    "face": "🐱",
+    "text": "喵~ 这是一段用于序列化自检的假文案，含 emoji 🎉🐱🚀 和引号\"双引号\"与反斜杠\\。",
+    "feats": [
+      "第一条小字：测试 surrogate pair 🎉 与中文字符混排。",
+      "第二条小字：测试空字符串边界 → "
+    ]
+  },
+  "integrity": {
+    "algorithm": "sha256",
+    "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+    "payloadSha256": "0000000000000000000000000000000000000000000000000000000000000000"
+  }
+}
