@@ -1,0 +1,123 @@
+name: 校验成绩提交
+
+# 收到带 submission 标签的 issue → 校验成绩卡 → 通过就写榜、回帖、关闭
+on:
+  issues:
+    types: [opened, labeled, edited, reopened]
+
+permissions:
+  contents: write      # 提交 board.json
+  issues: write        # 回帖、打标签、关闭 issue
+  actions: write       # 写榜后触发 publish.yml 重建站点
+
+# 串行处理：board.json 是单个文件，并行写会冲突
+concurrency:
+  group: verify-board
+  cancel-in-progress: false
+
+jobs:
+  verify:
+    # 处理条件（两个条件取或，防漏）：
+    #   · 带 submission 标签  —— 用模板新建的 issue 会自带
+    #   · 标题以 [成绩] 开头   —— 兜底：万一标签没建 / 被误删，也还能触发
+    # 通过后 issue 会被关闭，之后再编辑标题不会重复触发。
+    if: >-
+      (contains(github.event.issue.labels.*.name, 'submission')
+       || startsWith(github.event.issue.title, '[成绩]'))
+      && github.event.issue.state == 'open'
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: 取仓库
+        uses: actions/checkout@v4
+        with:
+          ref: main
+
+      - name: 装 Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: 校验成绩卡
+        id: check
+        env:
+          ISSUE_BODY: ${{ github.event.issue.body }}
+          ISSUE_NUMBER: ${{ github.event.issue.number }}
+          ISSUE_AUTHOR: ${{ github.event.issue.user.login }}
+          ISSUE_TITLE: ${{ github.event.issue.title }}
+          ISSUE_CREATED_AT: ${{ github.event.issue.created_at }}
+          REPO: ${{ github.repository }}
+        run: python tools/verify_submission.py
+
+      - name: 写入榜单
+        if: steps.check.outputs.ok == 'true'
+        run: |
+          set -e
+          git config user.name  "tbts-bot"
+          git config user.email "tbts-bot@users.noreply.github.com"
+          git add web/data/board.json BOARD.md
+          if git diff --cached --quiet; then
+            echo "榜单无变化，跳过提交"
+          else
+            git commit -m "上榜：issue #${{ github.event.issue.number }} (@${{ github.event.issue.user.login }})"
+            git push
+          fi
+
+      - name: 触发站点重建
+        # GITHUB_TOKEN 推的 commit 不会自动触发其它 workflow，所以要显式触发
+        if: steps.check.outputs.ok == 'true'
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: gh workflow run publish.yml --ref main || echo "触发失败，可稍后手动重跑 publish"
+
+      - name: 回帖
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('verify_result.json', 'utf8'));
+            } catch (e) {
+              console.log('没有读到 verify_result.json：' + e.message);
+              return;
+            }
+            await github.rest.issues.createComment({
+              owner: context.repo.owner,
+              repo: context.repo.repo,
+              issue_number: context.issue.number,
+              body: r.comment,
+            });
+
+      - name: 打标签 / 关闭 issue
+        if: always()
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('verify_result.json', 'utf8'));
+            } catch (e) { return; }
+
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const name  = r.ok ? 'accepted' : 'rejected';
+            const meta  = r.ok
+              ? { color: '2ea44f', description: '已通过校验并上榜' }
+              : { color: 'd73a4a', description: '未通过校验，见回帖说明' };
+
+            // 标签可能不存在，先建再打
+            try {
+              await github.rest.issues.getLabel({ owner, repo, name });
+            } catch (e) {
+              try { await github.rest.issues.createLabel({ owner, repo, name, ...meta }); }
+              catch (e2) { console.log('建标签失败（可能已存在）：' + e2.message); }
+            }
+            try {
+              await github.rest.issues.addLabels({ owner, repo, issue_number: context.issue.number, labels: [name] });
+            } catch (e) { console.log('打标签失败：' + e.message); }
+
+            if (r.ok) {
+              await github.rest.issues.update({ owner, repo, issue_number: context.issue.number, state: 'closed' });
+            }

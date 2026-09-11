@@ -1,0 +1,23 @@
+# 系统
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# 编辑器
+.vscode/
+.idea/
+*.swp
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+
+# Node（本地跑 render_check.js 用）
+node_modules/
+package-lock.json
+
+# 本地预览与临时产物
+shot_*.png
+verify_result.json
+*.local.*
