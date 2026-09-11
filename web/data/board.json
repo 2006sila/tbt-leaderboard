@@ -1,7 +1,7 @@
 {
   "version": 1,
   "demo": false,
-  "generatedAt": "2026-09-11T14:10:00Z",
+  "generatedAt": "2026-09-11T22:15:42+08:00",
   "entries": [
     {
       "issue": 3,
@@ -115,6 +115,121 @@
           "algorithm": "sha256",
           "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
           "payloadSha256": "7237d59d57e4100e291064113203d1f5d58c234e2f5fd4f462fbe8501bffeea8"
+        }
+      }
+    },
+    {
+      "issue": 11,
+      "issueUrl": "https://github.com/2006sila/tbt-leaderboard/issues/11",
+      "author": "lhzlhz419",
+      "owner": "ColinLu",
+      "scene": "S2",
+      "submittedAt": "2026-09-11T14:15:33Z",
+      "durSec": 981.9,
+      "sampleCount": 912,
+      "recordingSha256": "ca7dc2b2822fd032c884a98c1222f49ff77f6062bb948dde3153633c72133ddb",
+      "cpuKey": "intel core ultra 7 255hx",
+      "gpuKey": "nvidia geforce rtx 5060 laptop gpu",
+      "card": {
+        "format": "tbts-score",
+        "version": 1,
+        "generatedAt": "2026-09-11T22:06:49+08:00",
+        "owner": "ColinLu",
+        "generator": {
+          "app": "TBTSensorDashboard",
+          "version": "2.0.0",
+          "platform": "win-x64",
+          "sampleIntervalSec": 1
+        },
+        "score": {
+          "total": 100,
+          "grade": "优",
+          "parts": {
+            "performance": 100,
+            "smoothness": 100,
+            "thermal": 100,
+            "stability": 100,
+            "efficiency": 100,
+            "noise": 100
+          }
+        },
+        "metrics": {
+          "fpsAvg": 1000,
+          "fps1LowAvg": 1000,
+          "fpsWorst1Pct": 1000,
+          "frametimeP99Ms": 1,
+          "stutterRatio": 1,
+          "stutterPct": 0,
+          "frametimeCv": 0,
+          "fpsPerWatt": 5.31,
+          "fanPeakRpm": 1000,
+          "cpuHeadroomC": 50,
+          "gpuHeadroomC": 37,
+          "throttlePct": 0,
+          "below60Pct": 0,
+          "below30Pct": 0,
+          "below25Pct": 0,
+          "latencyP99Ms": 0.1,
+          "cpuMhzRatio": null,
+          "cpuUtilAvgPct": 13.8,
+          "gpuUtilAvgPct": 99,
+          "vramUtilAvgPct": 28.8,
+          "committedUtilAvgPct": 60.8,
+          "vramTempMaxC": 62,
+          "memSlotTempMaxC": 41.5,
+          "diskTempMaxC": 32.9
+        },
+        "events": {
+          "stutterRuns": 0,
+          "dipRuns": 0,
+          "throttlePct": 0,
+          "powerWall": false,
+          "powerWallDropPct": null,
+          "eventCount": 0
+        },
+        "hardware": {
+          "cpu": "Intel Core Ultra 7 255HX",
+          "cpuCores": 20,
+          "cpuThreads": 20,
+          "gpu": "NVIDIA GeForce RTX 5060 Laptop GPU",
+          "board": "LENOVO",
+          "os": "Windows 11 专业版 25H2 · Build 26200.8894",
+          "ram": "31.4 GB · DDR5-6400 MT/s ×2",
+          "ramModel": "ChangXin Memory Technologies Inc · 16 GB · DDR5-6400 MT/s + Ramaxel Technology · 16 GB · DDR5-6400 MT/s",
+          "disk": "YMTC YMSS2ED08D25MC · 954 GB",
+          "display": "3840 x 2160 · 160 Hz",
+          "battery": "外接电源 · 80%"
+        },
+        "view": {
+          "range": "全部时间",
+          "rangeIndex": 0,
+          "durationSec": 981.9,
+          "sampleCount": 912
+        },
+        "recording": {
+          "fileName": "sensors-20260911-212915-824_modified_all.jsonl",
+          "bytes": 186179,
+          "sha256": "ca7dc2b2822fd032c884a98c1222f49ff77f6062bb948dde3153633c72133ddb"
+        },
+        "confidence": {
+          "hasFps": true,
+          "insufficient": false,
+          "sampling": "≈1 Hz",
+          "note": "记录约 1 秒/次采样：帧时间类指标（最差1% / P99 / CV / 卡顿占比）为秒级近似，非逐帧统计；逐帧口径请用 CapFrameX / PresentMon。时长与采样数见 view 块。"
+        },
+        "flavor": {
+          "persona": "随机",
+          "face": "✨",
+          "text": "教科书级表现！这不是跑分，这是范文。满血输出还全程冷静，妥妥的“别人家的电脑”。建议截图留存，以后它哪天拉胯了，就拿出来给它看看它当年有多风光。",
+          "feats": [
+            "安静是它最大的优点——不吵不闹，安安静静把活干完，这种低调的可靠，比吼得响的更难得。",
+            "全程几乎没有波动，这份定力太难得了——稳，才是一台电脑最珍贵的品质。它做到了，值得大声表扬。"
+          ]
+        },
+        "integrity": {
+          "algorithm": "sha256",
+          "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
+          "payloadSha256": "fee3e75c9f5127f34eec890695fcfce7fd655ba8a0d3e91c65207a5c82907622"
         }
       }
     }
