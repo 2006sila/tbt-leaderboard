@@ -14,9 +14,10 @@ permissions:
   pages: write
   id-token: write
 
-concurrency:
-  group: pages
-  cancel-in-progress: true
+# 诊断：临时移除 concurrency 块，验证是否被残留的 pages 组锁阻塞（2026-09-13）
+# concurrency:
+#   group: pages
+#   cancel-in-progress: true
 
 jobs:
   build:
