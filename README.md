@@ -20,7 +20,7 @@
 
 ## 怎么提交
 
-1. **跑一段** —— 用 TBTS 录制至少 15 分钟，建议插电 + 性能模式，跑你平时真跑的东西。
+1. **跑一段** —— 用 TBTS 录制至少 10 分钟，建议插电 + 性能模式，跑你平时真跑的东西。
 2. **导出成绩卡** —— 评分页点「导出评分」存成文件，或点「复制」把内容放进剪贴板。
 3. **发 issue** —— 点 [新建提交](https://github.com/2006sila/tbt-leaderboard/issues/new?template=submit-score.md&labels=submission)，
    光标点进代码块按 <kbd>Ctrl</kbd>+<kbd>V</kbd>，补好标题，提交。
@@ -36,7 +36,7 @@
 
 | 条件 | 值 | 怎么判 |
 |---|---|---|
-| 记录时长 | ≥ 15 分钟 | `view.durationSec` |
+| 记录时长 | ≥ 10 分钟 | `view.durationSec` |
 | 含 FPS 数据 | 必须 | `confidence.hasFps` |
 | 数据充足 | 非「数据不足」 | `confidence.insufficient` |
 | 实际采样间隔 | ≤ 5 秒 | `durationSec / (sampleCount - 1)` |

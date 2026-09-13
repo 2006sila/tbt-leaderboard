@@ -111,7 +111,7 @@ def validate(card, policy):
 
     # 1) 时长
     dur = view.get("durationSec")
-    need = policy.get("minDurationSec", 900)
+    need = policy.get("minDurationSec", 600)
     detail.append("- 时长：%s（门槛 %s）" % (fmt_dur(dur), fmt_dur(need)))
     if dur is None:
         return fail(

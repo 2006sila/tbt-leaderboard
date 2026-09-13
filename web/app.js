@@ -20,7 +20,7 @@ let SCENE_LABEL = { S1: '游戏稳态', S2: '压力测试' };
 
 // 收录门槛 —— 单一出处是 data/policy.json（机器人 verify_submission.py 读同一份）。
 // 网页只负责把数字显示出来，判断门槛是机器人的事，两边不会漂移。
-let POLICY = { minDurationSec: 900, maxSampleGapSec: 5 };
+let POLICY = { minDurationSec: 600, maxSampleGapSec: 5 };
 
 const state = {
   all: [],            // 全部 entries
