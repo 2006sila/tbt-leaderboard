@@ -13,12 +13,13 @@ ISSUE_AUTHOR       提交者 GitHub 登录名（身份标识：真实账号，�
 ISSUE_TITLE        issue 标题（用来识别场景标签）
 ISSUE_CREATED_AT   issue 创建时间（作为提交时间；比卡片自带的时间可信）
 REPO               owner/name
+REPO_OWNER         仓库所有者登录名（policy 没配 notify.mention 时，异常提醒 @ 他）
 DRY_RUN            非空时只校验不落盘（本地测试用）
 
 产物
 ----
 verify_result.json   校验结果 + 现成的回帖 Markdown（workflow 直接贴）
-GITHUB_OUTPUT        ok=true/false、stage、suspicious=true/false
+GITHUB_OUTPUT        ok=true/false、stage、suspicious=true/false、notify=true/false
 退出码恒为 0（除未预期异常），避免 CI 因"校验不通过"变红。
 
 约定
@@ -26,6 +27,10 @@ GITHUB_OUTPUT        ok=true/false、stage、suspicious=true/false
 数值合理性检查（sanity_check）**只标记、不拦截**：命中的成绩照样上榜，
 额外打 suspicious 标签并在回帖里列出可疑点。它是"提高造假成本"，
 不是防伪 —— 真正的核验要拿原始记录复算。
+
+命中时默认还会**提醒维护者**：回帖里 @ 一句，并由 workflow 把 issue 指派给他
+（GitHub 对被指派/被 @ 的人推送站内与邮件通知）。开关与 @ 对象见
+policy.sanity.notify；提交者本人就是维护者时按 unlessSelf 跳过。
 """
 
 import datetime
@@ -412,6 +417,8 @@ def main():
     except ValueError:
         issue = 0
     author = os.environ.get("ISSUE_AUTHOR", "") or "unknown"
+    # 仓库所有者 —— 异常成绩要提醒的人（policy 没显式配 mention 时用它）
+    repo_owner = (os.environ.get("REPO_OWNER", "") or "").strip().lstrip("@")
     title = os.environ.get("ISSUE_TITLE", "")
     created = os.environ.get("ISSUE_CREATED_AT", "") or datetime.datetime.now(
         datetime.timezone.utc).strftime("%Y-%m-%dT%H:%M:%SZ")
@@ -493,6 +500,18 @@ def main():
     flags, flag_msgs = sanity_check(card, policy)
     suspicious = bool(flags)
 
+    # 命中时是否提醒维护者：issue 指派 + 回帖 @（配置见 policy.sanity.notify）
+    notify_cfg = (policy.get("sanity") or {}).get("notify") or {}
+    notify_mention = (notify_cfg.get("mention") or "").strip().lstrip("@") or repo_owner
+    notify = bool(
+        suspicious
+        and notify_cfg.get("enabled", True)
+        and notify_mention
+        and not (notify_cfg.get("unlessSelf", True)
+                 and notify_mention.lower() == author.lower())
+    )
+    notify_assign = bool(notify and notify_cfg.get("assign", True))
+
     # 6) 通过 —— 入榜
     entry = tc.build_entry(card, issue, author, created, REPO_URL)
     entry["scene"] = extract_scene(title, body, policy)
@@ -552,7 +571,10 @@ def main():
             "",
             "本成绩**已照常上榜**，但机器人检测到下列数值不符合真实记录的物理规律：",
             "",
-        ] + ["- %s" % msg for msg in flag_msgs] + [
+        ] + ["- %s" % msg for msg in flag_msgs] + ([
+            "",
+            "@%s 这条成绩命中了数值合理性检查，请人工复核。" % notify_mention,
+        ] if notify else []) + [
             "",
             "> 这是**标记**而非驳回：榜单上会显示异常角标。"
             "若你认为属于误判，请在本 issue 里说明，等待人工复核。",
@@ -593,6 +615,9 @@ def main():
         "sanityLabelColor": sanity_cfg.get("labelColor", "d93f0b"),
         "sanityLabelDescription": sanity_cfg.get(
             "labelDescription", "数值存在异常，建议人工复核"),
+        "notify": notify,
+        "notifyMention": notify_mention if notify else "",
+        "notifyAssign": notify_assign,
     })
 
 
@@ -607,6 +632,8 @@ def finish(result):
             f.write("stage=%s\n" % result.get("stage", ""))
             f.write("suspicious=%s\n"
                     % ("true" if result.get("suspicious") else "false"))
+            f.write("notify=%s\n"
+                    % ("true" if result.get("notify") else "false"))
     print("[verify] ok=%s stage=%s %s"
           % (result.get("ok"), result.get("stage"), result.get("headline", "")))
     return 0

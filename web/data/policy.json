@@ -1,6 +1,6 @@
 {
   "_comment": "榜单收录门槛与异常判定 —— 唯一出处。机器人（.github/workflows/verify.yml）和网页（web/app.js）都读这一份，改门槛只改这里。",
-  "policyVersion": 3,
+  "policyVersion": 4,
   "minDurationSec": 600,
   "maxSampleGapSec": 5,
   "requireHasFps": true,
@@ -19,6 +19,13 @@
     "filenameRedFlags": ["modified", "fake", "edit", "copy", "test"],
     "filenamePattern": "^sensors-\\d{8}-\\d{6}-\\d{3}\\.jsonl(\\.gz)?$",
     "minLatencyP99Ms": 1,
-    "allPartsHigh": 99.5
+    "allPartsHigh": 99.5,
+    "notify": {
+      "_comment": "命中异常时提醒维护者。GitHub 对被指派/被 @ 的人会推送站内与邮件通知（邮件取决于个人通知设置）。mention 留空 = 用仓库 owner（github.repository_owner）。enabled=false 可整体关掉。",
+      "enabled": true,
+      "assign": true,
+      "mention": "",
+      "unlessSelf": true
+    }
   }
 }

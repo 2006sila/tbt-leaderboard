@@ -47,6 +47,7 @@ jobs:
           ISSUE_TITLE: ${{ github.event.issue.title }}
           ISSUE_CREATED_AT: ${{ github.event.issue.created_at }}
           REPO: ${{ github.repository }}
+          REPO_OWNER: ${{ github.repository_owner }}
         run: python tools/verify_submission.py
 
       - name: 写入榜单
@@ -154,3 +155,33 @@ jobs:
               });
               console.log('已打异常标签：' + name + '（命中 ' + (r.sanityFlags || []).join(', ') + '）');
             } catch (e) { console.log('打异常标签失败：' + e.message); }
+
+      - name: 提醒维护者
+        # 命中数值异常 → 把 issue 指派给维护者（GitHub 会对被指派人推送站内 + 邮件通知）
+        # @ 的那句已经在回帖正文里（由 verify_submission.py 生成）；这里只负责指派。
+        # 指派失败不算错：非协作者无法被指派（403），但 @ 通知照常送达。
+        if: steps.check.outputs.notify == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('verify_result.json', 'utf8'));
+            } catch (e) { return; }
+
+            const who = r.notifyMention;
+            if (!who) { console.log('没有提醒对象，跳过'); return; }
+            if (!r.notifyAssign) { console.log('policy 关了指派，仅靠回帖 @：' + who); return; }
+
+            try {
+              await github.rest.issues.addAssignees({
+                owner: context.repo.owner,
+                repo: context.repo.repo,
+                issue_number: context.issue.number,
+                assignees: [who],
+              });
+              console.log('已把 issue 指派给 @' + who + '，等待人工复核');
+            } catch (e) {
+              console.log('指派失败（不影响回帖里的 @ 提醒）：' + e.message);
+            }
