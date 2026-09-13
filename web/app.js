@@ -188,6 +188,8 @@ function prep(e) {
     flavor: card.flavor || {},
     recording: card.recording || {},
     fullTime: (view.rangeIndex ?? 0) === 0,
+    suspicious: !!e.suspicious,
+    sanityNotes: e.sanityNotes || [],
   };
 }
 
@@ -320,6 +322,7 @@ function rowHtml(e, rank) {
   const top = rank <= 3 ? ` top${rank}` : '';
   const badges = [
     !e.fullTime ? `<span class="badge part" title="导出时用的不是「全部时间」区间">非全时段</span>` : '',
+    e.suspicious ? `<span class="badge flag" title="机器人检测到数值不符合真实记录的物理规律，建议人工复核">数值异常</span>` : '',
   ].join('');
 
   return `
@@ -348,6 +351,12 @@ function detailHtml(e) {
   const m = e.metrics, ev = e.events, f = e.flavor, r = e.recording;
 
   return `
+    ${e.suspicious ? `<div class="d-flag">
+      <div class="dfg-h">机器人检测到数值异常</div>
+      <ul class="dfg-l">${(e.sanityNotes.length ? e.sanityNotes : ['数值特征不符合真实记录']).map((t) => `<li>${esc(t)}</li>`).join('')}</ul>
+      <div class="dfg-f">这条成绩已照常上榜，异常标记仅作提示 —— 榜单成绩均为自报，未经复算核验。</div>
+    </div>` : ''}
+
     <div class="d-flavor">
       <div class="df-head">
         <span class="df-face">${esc(f.face || '💬')}</span>

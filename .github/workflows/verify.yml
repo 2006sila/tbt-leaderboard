@@ -121,3 +121,36 @@ jobs:
             if (r.ok) {
               await github.rest.issues.update({ owner, repo, issue_number: context.issue.number, state: 'closed' });
             }
+
+      - name: 打异常数据标签
+        # 数值合理性命中：成绩照常上榜，额外挂一个标签等人工复核
+        if: steps.check.outputs.suspicious == 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const fs = require('fs');
+            let r;
+            try {
+              r = JSON.parse(fs.readFileSync('verify_result.json', 'utf8'));
+            } catch (e) { return; }
+
+            const owner = context.repo.owner, repo = context.repo.repo;
+            const name  = r.sanityLabel || 'suspicious';
+            const meta  = {
+              color: r.sanityLabelColor || 'd93f0b',
+              description: r.sanityLabelDescription || '数值存在异常，建议人工复核',
+            };
+
+            // 标签可能不存在，先建再打
+            try {
+              await github.rest.issues.getLabel({ owner, repo, name });
+            } catch (e) {
+              try { await github.rest.issues.createLabel({ owner, repo, name, ...meta }); }
+              catch (e2) { console.log('建标签失败（可能已存在）：' + e2.message); }
+            }
+            try {
+              await github.rest.issues.addLabels({
+                owner, repo, issue_number: context.issue.number, labels: [name],
+              });
+              console.log('已打异常标签：' + name + '（命中 ' + (r.sanityFlags || []).join(', ') + '）');
+            } catch (e) { console.log('打异常标签失败：' + e.message); }

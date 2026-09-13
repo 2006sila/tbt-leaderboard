@@ -1,6 +1,6 @@
 {
-  "_comment": "榜单收录门槛 —— 唯一出处。机器人（.github/workflows/verify.yml）和网页（web/app.js）都读这一份，改门槛只改这里。",
-  "policyVersion": 2,
+  "_comment": "榜单收录门槛与异常判定 —— 唯一出处。机器人（.github/workflows/verify.yml）和网页（web/app.js）都读这一份，改门槛只改这里。",
+  "policyVersion": 3,
   "minDurationSec": 600,
   "maxSampleGapSec": 5,
   "requireHasFps": true,
@@ -9,5 +9,16 @@
   "sceneLabels": {
     "S1": "游戏稳态",
     "S2": "压力测试"
+  },
+  "sanity": {
+    "_comment": "数值合理性检查 —— 命中只打标记、不拦提交。全部挑「物理不可能」级信号，用于提示人工复核。",
+    "enabled": true,
+    "label": "suspicious",
+    "labelColor": "d93f0b",
+    "labelDescription": "数值存在异常，建议人工复核",
+    "filenameRedFlags": ["modified", "fake", "edit", "copy", "test"],
+    "filenamePattern": "^sensors-\\d{8}-\\d{6}-\\d{3}\\.jsonl(\\.gz)?$",
+    "minLatencyP99Ms": 1,
+    "allPartsHigh": 99.5
   }
 }

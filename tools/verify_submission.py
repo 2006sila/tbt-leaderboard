@@ -18,8 +18,14 @@ DRY_RUN            非空时只校验不落盘（本地测试用）
 产物
 ----
 verify_result.json   校验结果 + 现成的回帖 Markdown（workflow 直接贴）
-GITHUB_OUTPUT        ok=true/false
+GITHUB_OUTPUT        ok=true/false、stage、suspicious=true/false
 退出码恒为 0（除未预期异常），避免 CI 因"校验不通过"变红。
+
+约定
+----
+数值合理性检查（sanity_check）**只标记、不拦截**：命中的成绩照样上榜，
+额外打 suspicious 标签并在回帖里列出可疑点。它是"提高造假成本"，
+不是防伪 —— 真正的核验要拿原始记录复算。
 """
 
 import datetime
@@ -193,6 +199,91 @@ def validate(card, policy):
                      ("%.1f KB" % (rec["bytes"] / 1024)) if rec.get("bytes") else "—"))
 
     return None, detail
+
+
+# ──────────────────────────── 数值合理性（异常标记）────────────────────────────
+
+def sanity_check(card, policy):
+    """数值合理性检查 —— 只标记、不拦截。
+
+    目标是「物理不可能」级信号：真实记录必然有帧率梯度、有方差、有事件；
+    而"改 tbt 输出文件 → 让 TBTS 重新导出"造出来的高分记录往往一路完美。
+    命中只打标记（suspicious 标签 + 榜单角标），不影响收录。
+
+    返回 (命中 key 列表, 中文说明列表)；没命中返回 ([], [])。
+    """
+    cfg = policy.get("sanity") or {}
+    if not cfg.get("enabled", True):
+        return [], []
+
+    hits = []
+    metrics = card.get("metrics") or {}
+    events = card.get("events") or {}
+    rec = card.get("recording") or {}
+    parts = (card.get("score") or {}).get("parts") or {}
+
+    def num(v):
+        try:
+            return None if v is None else float(v)
+        except (TypeError, ValueError):
+            return None
+
+    # 1) 记录文件名：可疑字样 / 命名不合规
+    fn = (rec.get("fileName") or "").strip()
+    for word in cfg.get("filenameRedFlags") or []:
+        if str(word).lower() in fn.lower():
+            hits.append(("filename_flag",
+                         "记录文件名含可疑字样 `%s`：`%s`" % (word, fn)))
+            break
+    pat = cfg.get("filenamePattern")
+    if fn and pat:
+        try:
+            if not re.fullmatch(pat, fn):
+                hits.append(("filename_pattern",
+                             "记录文件名不符合 TBTS 默认命名规则：`%s`" % fn))
+        except re.error:
+            pass
+
+    # 2) 帧率分布：三者完全相等 / 单调性违约
+    avg, low, worst = (num(metrics.get("fpsAvg")),
+                       num(metrics.get("fps1LowAvg")),
+                       num(metrics.get("fpsWorst1Pct")))
+    if avg is not None and low is not None and worst is not None and avg == low == worst:
+        hits.append(("fps_identical",
+                     "帧率均值 / 1%% Low / 最差 1%% 三者完全相等（%.1f）"
+                     "——真实记录必然有梯度" % avg))
+    if avg is not None and low is not None and low > avg:
+        hits.append(("fps_monotonic",
+                     "1%% Low（%.1f）高于均值（%.1f）——逻辑上不可能" % (low, avg)))
+    if low is not None and worst is not None and worst > low:
+        hits.append(("fps_monotonic",
+                     "最差 1%%（%.1f）高于 1%% Low（%.1f）——逻辑上不可能" % (worst, low)))
+
+    # 3) 零方差：帧时间无抖动、无卡顿、无事件
+    cv = num(metrics.get("frametimeCv"))
+    sp = num(metrics.get("stutterPct"))
+    if cv == 0 and sp == 0 and not (events.get("eventCount") or 0):
+        hits.append(("zero_variance",
+                     "帧时间变异系数为 0、卡顿占比为 0、事件数为 0"
+                     "——真实运行不可能毫无抖动"))
+
+    # 4) 延迟低于物理下限
+    lat = num(metrics.get("latencyP99Ms"))
+    floor = cfg.get("minLatencyP99Ms", 1)
+    if lat is not None and lat < float(floor):
+        hits.append(("latency",
+                     "P99 延迟 %.2f ms 低于物理下限 %s ms" % (lat, floor)))
+
+    # 5) 六项分项全部满分
+    part_keys = ("performance", "smoothness", "thermal",
+                 "stability", "efficiency", "noise")
+    vals = [num(parts.get(k)) for k in part_keys]
+    threshold = float(cfg.get("allPartsHigh", 99.5))
+    if all(v is not None and v >= threshold for v in vals):
+        hits.append(("all_parts_max",
+                     "六项分项全部 ≥ %s——真实机器不可能项项满分" % threshold))
+
+    return [k for k, _ in hits], [msg for _, msg in hits]
 
 
 def check_duplicate(board, sha):
@@ -389,9 +480,17 @@ def main():
         )
         return finish(result)
 
-    # 5) 通过 —— 入榜
+    # 5) 数值合理性 —— 只标记、不拦截（命中照样上榜，额外打异常标签）
+    flags, flag_msgs = sanity_check(card, policy)
+    suspicious = bool(flags)
+
+    # 6) 通过 —— 入榜
     entry = tc.build_entry(card, issue, author, created, REPO_URL)
     entry["scene"] = extract_scene(title, body, policy)
+    entry["suspicious"] = suspicious
+    if suspicious:
+        entry["sanityFlags"] = flags
+        entry["sanityNotes"] = flag_msgs
 
     was_demo = bool(board.get("demo"))
     if was_demo:
@@ -435,6 +534,20 @@ def main():
     if flavor.get("persona"):
         lines.append("- 趣味评价：由桌面端按当时人设（%s）生成，已一并写入榜单"
                      % flavor["persona"])
+    if suspicious:
+        lines += [
+            "",
+            "---",
+            "",
+            "⚠️ **数值异常提示**",
+            "",
+            "本成绩**已照常上榜**，但机器人检测到下列数值不符合真实记录的物理规律：",
+            "",
+        ] + ["- %s" % msg for msg in flag_msgs] + [
+            "",
+            "> 这是**标记**而非驳回：榜单上会显示异常角标。"
+            "若你认为属于误判，请在本 issue 里说明，等待人工复核。",
+        ]
     lines += [
         "",
         "榜单与详情：%s" % REPO_URL,
@@ -452,10 +565,11 @@ def main():
         save_board(board)
         BOARD_MD_PATH.write_text(render_board_md(board), encoding="utf-8", newline="\n")
 
+    sanity_cfg = policy.get("sanity") or {}
     return finish({
         "ok": True,
         "stage": "accepted",
-        "headline": "已上榜",
+        "headline": "已上榜（标记为数值异常）" if suspicious else "已上榜",
         "comment": "\n".join(lines),
         "issue": issue,
         "rank": rank,
@@ -464,6 +578,12 @@ def main():
         "poolSize": pool_size,
         "scene": entry["scene"],
         "recordingSha256": sha,
+        "suspicious": suspicious,
+        "sanityFlags": flags,
+        "sanityLabel": sanity_cfg.get("label", "suspicious"),
+        "sanityLabelColor": sanity_cfg.get("labelColor", "d93f0b"),
+        "sanityLabelDescription": sanity_cfg.get(
+            "labelDescription", "数值存在异常，建议人工复核"),
     })
 
 
@@ -476,6 +596,8 @@ def finish(result):
         with open(gh_out, "a", encoding="utf-8") as f:
             f.write("ok=%s\n" % ("true" if result.get("ok") else "false"))
             f.write("stage=%s\n" % result.get("stage", ""))
+            f.write("suspicious=%s\n"
+                    % ("true" if result.get("suspicious") else "false"))
     print("[verify] ok=%s stage=%s %s"
           % (result.get("ok"), result.get("stage"), result.get("headline", "")))
     return 0

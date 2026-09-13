@@ -17,6 +17,18 @@ const html = fs.readFileSync(path.join(WEB, 'index.html'), 'utf8');
 const boardRaw = fs.readFileSync(path.join(WEB, 'data', 'board.json'), 'utf8');
 const board = JSON.parse(boardRaw);
 const policyRaw = fs.readFileSync(path.join(WEB, 'data', 'policy.json'), 'utf8');
+
+// 给总分最高的一条注入异常标记，用来验证「数值异常」角标与详情提示块的渲染。
+// 只在内存里改，不落盘 —— 演示数据本身保持干净。
+const flaggedEntry = board.entries.slice()
+  .sort((a, b) => b.card.score.total - a.card.score.total)[0];
+flaggedEntry.suspicious = true;
+flaggedEntry.sanityNotes = [
+  '记录文件名含可疑字样 `modified`：`sensors-20260911-212915-824_modified_all.jsonl`',
+  '帧率均值 / 1% Low / 最差 1% 三者完全相等（1000.0）——真实记录必然有梯度',
+  '六项分项全部 ≥ 99.5——真实机器不可能项项满分',
+];
+const boardDataRaw = JSON.stringify(board);
 const policy = JSON.parse(policyRaw);
 
 const dom = new JSDOM(html, { url: 'http://localhost/', pretendToBeVisual: true, runScripts: 'outside-only' });
@@ -27,7 +39,7 @@ const errors = [];
 w.addEventListener('error', (e) => errors.push('window.onerror: ' + (e.message || e.error)));
 // 按 URL 分发：app.js 会分别取 board.json 和 policy.json
 w.fetch = async (url) => {
-  const body = String(url).includes('policy.json') ? policyRaw : boardRaw;
+  const body = String(url).includes('policy.json') ? policyRaw : boardDataRaw;
   return { ok: true, status: 200, json: async () => JSON.parse(body) };
 };
 
@@ -71,6 +83,13 @@ function check(name, ok, detail = '') {
   const totals = rows().map((r) => parseFloat(txt(r.querySelector('.total-v'))));
   const sorted = totals.every((v, i) => i === 0 || totals[i - 1] >= v);
   check('默认按总分降序', sorted, totals.join(', '));
+
+  // ---- 数值异常角标 ----
+  const flagBadge = rows()[0].querySelector('.badge.flag');
+  check('异常条目标出「数值异常」角标', !!flagBadge && txt(flagBadge) === '数值异常',
+        flagBadge ? txt(flagBadge) : '未找到角标');
+  check('正常条目不带异常角标',
+        rows().length < 2 || !rows()[1].querySelector('.badge.flag'));
 
   // ---- 筛选下拉 ----
   const opts = (id) => [...d.getElementById(id).options].map((o) => o.value).filter(Boolean);
@@ -126,6 +145,10 @@ function check(name, ok, detail = '') {
           `${detail.querySelectorAll('.bar-row').length} 条`);
     check('详情含「只看同配置」按钮', !!detail.querySelector('[data-same]'));
     check('详情含 issue 链接', !!detail.querySelector('a.link'));
+    check('详情含异常提示块', !!detail.querySelector('.d-flag'));
+    check('异常提示逐条列出命中项',
+          detail.querySelectorAll('.dfg-l li').length === flaggedEntry.sanityNotes.length,
+          `${detail.querySelectorAll('.dfg-l li').length} 条`);
   }
 
   // ---- 「只看同配置」按钮 ----
