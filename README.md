@@ -94,6 +94,7 @@ tools/
   tbts_card.py           成绩卡解析 / 规范化 / 自校验
   verify_submission.py   机器人：校验一条提交并写榜
   gen_demo_data.py       生成本地预览用的演示数据
+  retrofit_sanity.py     给榜上存量成绩补跑/刷新数值合理性标记
   render_check.js        前端回归自检（需要 jsdom）
   selftest_card.py       成绩卡模块自检（含 payloadSha256 逐字节验证）
 .github/workflows/
@@ -128,6 +129,7 @@ cd web && python -m http.server 8137
 python tools/selftest_card.py                                  # 成绩卡模块
 DRY_RUN=1 ISSUE_BODY="$(cat /tmp/card.md)" python tools/verify_submission.py
 node tools/render_check.js                                     # 需要 jsdom
+python tools/retrofit_sanity.py --check                        # 看看存量成绩有无异常标记
 ```
 
 ## 许可

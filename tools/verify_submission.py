@@ -307,10 +307,15 @@ def load_board():
     return {"version": 1, "demo": False, "generatedAt": "", "entries": []}
 
 
-def save_board(board):
-    board["generatedAt"] = datetime.datetime.now(
+def now_iso():
+    """当前时间（北京时间，ISO 8601 秒精度）。"""
+    return datetime.datetime.now(
         datetime.timezone(datetime.timedelta(hours=8))
     ).strftime("%Y-%m-%dT%H:%M:%S+08:00")
+
+
+def save_board(board):
+    board["generatedAt"] = now_iso()
     BOARD_PATH.parent.mkdir(parents=True, exist_ok=True)
     with open(BOARD_PATH, "w", encoding="utf-8", newline="\n") as f:
         json.dump(board, f, ensure_ascii=False, indent=2)
