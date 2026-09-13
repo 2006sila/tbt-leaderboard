@@ -32,6 +32,9 @@ const state = {
 
 const $ = (id) => document.getElementById(id);
 
+/* 「不看异常数据」勾选状态的本地记忆键 —— 只存浏览器，不上报 */
+const FLAG_KEY = 'tbts-hide-flag';
+
 /* --------------------------------- 工具函数 -------------------------------- */
 
 /** 站点侧机型归一化：去商标符 + 压空白 + 小写 + 去尾部 CPU 主频。
@@ -150,6 +153,7 @@ async function boot() {
   }
   document.title = (data.title || 'ThinkBook 传感器评分榜') + ' · TBTS';
 
+  restoreFlagPref();
   buildFilters();
   bindEvents();
   renderKpis();
@@ -193,6 +197,28 @@ function prep(e) {
   };
 }
 
+/* ------------------------ 「不看异常数据」勾选态 ------------------------ */
+
+const flagOn = () => !!($('fHideFlag') || {}).checked;
+
+/** 勾选态 → 标签高亮，与下拉框被选中时的 .on 视觉一致 */
+function syncFlagUi() {
+  const el = $('fHideFlag');
+  if (el) el.closest('.fld').classList.toggle('on', !!el.checked);
+}
+
+function restoreFlagPref() {
+  let on = false;
+  try { on = localStorage.getItem(FLAG_KEY) === '1'; } catch (_) { /* 隐私模式存不了，忽略 */ }
+  const el = $('fHideFlag');
+  if (el) el.checked = on;
+  syncFlagUi();
+}
+
+function saveFlagPref() {
+  try { localStorage.setItem(FLAG_KEY, flagOn() ? '1' : '0'); } catch (_) { /* 同上 */ }
+}
+
 /* --------------------------------- 筛选器 --------------------------------- */
 
 function fillSelect(sel, pairs, keepValue) {
@@ -226,11 +252,20 @@ function bindEvents() {
     });
   });
 
+  $('fHideFlag').addEventListener('change', () => {
+    syncFlagUi();
+    saveFlagPref();
+    render();
+  });
+
   $('fReset').addEventListener('click', () => {
     ['fScene', 'fCpu', 'fGpu', 'fGrade'].forEach((id) => {
       $(id).value = '';
       $(id).classList.remove('on');
     });
+    $('fHideFlag').checked = false;
+    syncFlagUi();
+    saveFlagPref();
     render();
   });
 
@@ -256,8 +291,11 @@ function bindEvents() {
   });
 }
 
-function match(e) {
-  return (!$('fScene').value || e.scene === $('fScene').value)
+/** ignoreFlag=true 时忽略「不看异常数据」勾选 —— 用来算「因勾选而少看了几条」 */
+function match(e, ignoreFlag = false) {
+  const flagOk = ignoreFlag || !flagOn() || !e.suspicious;
+  return flagOk
+    && (!$('fScene').value || e.scene === $('fScene').value)
     && (!$('fCpu').value || e.cpuKey === $('fCpu').value)
     && (!$('fGpu').value || e.gpuKey === $('fGpu').value)
     && (!$('fGrade').value || e.grade === $('fGrade').value);
@@ -283,11 +321,15 @@ function renderKpis() {
 /* --------------------------------- 榜单渲染 -------------------------------- */
 
 function render() {
-  const list = state.all.filter(match).sort((a, b) => b.total - a.total || a.submittedAt.localeCompare(b.submittedAt));
+  // 注意：必须包一层箭头函数 —— 直接写 filter(match) 会把数组索引当成 ignoreFlag 传进去
+  const list = state.all.filter((e) => match(e)).sort((a, b) => b.total - a.total || a.submittedAt.localeCompare(b.submittedAt));
   state.view = list;
 
   const total = state.all.length;
-  $('cnt').innerHTML = `显示 <b>${list.length}</b> / ${total} 条`;
+  // 因勾选「不看异常数据」而少看的条数：用忽略勾选框的同一套条件重算，避免和其他筛选打架
+  const hiddenByFlag = flagOn() ? state.all.filter((e) => match(e, true)).length - list.length : 0;
+  $('cnt').innerHTML = `显示 <b>${list.length}</b> / ${total} 条`
+    + (hiddenByFlag > 0 ? `（已隐藏 ${hiddenByFlag} 条异常数据）` : '');
 
   const cpuOn = $('fCpu').value, gpuOn = $('fGpu').value;
   const samePool = cpuOn && gpuOn;

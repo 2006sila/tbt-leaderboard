@@ -4,6 +4,7 @@
  *   2) 榜单行数、KPI、筛选下拉渲染正确
  *   3) 行展开 / 「只看同配置」交互可用
  *   4) 门槛文案确实来自 data/policy.json（不是硬编码）
+ *   5) 「不看异常数据」勾选能过滤掉带标记的成绩、并如实提示隐藏条数
  *
  * 用法: NODE_PATH=<workspace>/node_modules node render_check.js
  * 这是开发期工具，不随站点发布。
@@ -129,6 +130,26 @@ function check(name, ok, detail = '') {
   d.getElementById('fReset').dispatchEvent(new w.MouseEvent('click', { bubbles: true }));
   await wait(60);
   check('重置后恢复全部', rows().length === board.entries.length, `实际 ${rows().length}`);
+
+  // ---- 「不看异常数据」勾选 ----
+  const fHide = d.getElementById('fHideFlag');
+  check('「不看异常数据」默认未勾选', !!fHide && !fHide.checked);
+  const flagTotal = board.entries.filter((e) => e.suspicious).length;
+  fHide.checked = true;
+  fHide.dispatchEvent(new w.Event('change'));
+  await wait(60);
+  check(`勾选后剩 ${board.entries.length - flagTotal} 行`,
+        rows().length === board.entries.length - flagTotal, `实际 ${rows().length}`);
+  check('勾选后不再出现「数值异常」角标', !d.querySelector('.badge.flag'));
+  const flagMem = (() => { try { return w.localStorage.getItem('tbts-hide-flag'); } catch (_) { return '读不到'; } })();
+  check('勾选状态写入本地记忆', flagMem === '1', `localStorage=${flagMem}`);
+  check('计数提示写明隐藏条数',
+        txt(d.getElementById('cnt')).includes(`已隐藏 ${flagTotal} 条`),
+        txt(d.getElementById('cnt')));
+  fHide.checked = false;
+  fHide.dispatchEvent(new w.Event('change'));
+  await wait(60);
+  check('取消勾选后恢复全部', rows().length === board.entries.length, `实际 ${rows().length}`);
 
   // ---- 展开行 ----
   rows()[0].dispatchEvent(new w.MouseEvent('click', { bubbles: true }));
