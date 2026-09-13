@@ -1,7 +1,7 @@
 {
   "version": 1,
   "demo": false,
-  "generatedAt": "2026-09-11T22:15:42+08:00",
+  "generatedAt": "2026-09-13T11:36:56+08:00",
   "entries": [
     {
       "issue": 3,
@@ -231,7 +231,24 @@
           "canonical": "card with integrity=null | no indent | utf-8 | fixed key order (v1)",
           "payloadSha256": "fee3e75c9f5127f34eec890695fcfce7fd655ba8a0d3e91c65207a5c82907622"
         }
-      }
+      },
+      "suspicious": true,
+      "sanityFlags": [
+        "filename_flag",
+        "filename_pattern",
+        "fps_identical",
+        "zero_variance",
+        "latency",
+        "all_parts_max"
+      ],
+      "sanityNotes": [
+        "记录文件名含可疑字样 `modified`：`sensors-20260911-212915-824_modified_all.jsonl`",
+        "记录文件名不符合 TBTS 默认命名规则：`sensors-20260911-212915-824_modified_all.jsonl`",
+        "帧率均值 / 1% Low / 最差 1% 三者完全相等（1000.0）——真实记录必然有梯度",
+        "帧时间变异系数为 0、卡顿占比为 0、事件数为 0——真实运行不可能毫无抖动",
+        "P99 延迟 0.10 ms 低于物理下限 1 ms",
+        "六项分项全部 ≥ 99.5——真实机器不可能项项满分"
+      ]
     }
   ]
 }

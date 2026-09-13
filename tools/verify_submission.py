@@ -327,6 +327,8 @@ def render_board_md(board):
         "",
         "所有成绩均为**用户自报**，未经复算核验；机器人只校验成绩卡的自洽性与门槛，不验证跑法。",
         "",
+        "标有 ⚠️ 的成绩被机器人判定数值异常（详见网页端展开详情），已照常收录，仅作提示。",
+        "",
         "| # | 署名 | 总分 | 等级 | CPU | GPU | 时长 | 场景 | 提交 | issue |",
         "|---:|---|---:|:--:|---|---|---:|:--:|---|---:|",
     ]
@@ -335,6 +337,8 @@ def render_board_md(board):
         hw = card.get("hardware") or {}
         view = card.get("view") or {}
         owner = (e.get("owner") or e.get("author") or "匿名").replace("|", "\\|")
+        if e.get("suspicious"):
+            owner = "⚠️ " + owner
         out.append("| %d | %s | %.1f | %s | %s | %s | %s | %s | %s | [#%s](%s) |" % (
             i, owner,
             total_of(e), (card.get("score") or {}).get("grade", "—"),
